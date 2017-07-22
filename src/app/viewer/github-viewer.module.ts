@@ -8,15 +8,14 @@ import { MdTabsModule, MdListModule, MdIconModule,
   MdButtonModule, MdProgressSpinnerModule, MdGridListModule,
   MdCardModule, MdProgressBarModule, MdSnackBarModule, MdChipsModule } from '@angular/material';
 import { HttpClientModule } from '@angular/common/http';
-import { AceEditorDirective } from 'ng2-ace';
+import { AceEditorModule } from 'ng2-ace-editor';
 import { LoggerService } from './logger-service';
 
 @NgModule({
   declarations: [
     GithubRepoListComponent,
     GithubRepoComponent,
-    GithubRepoTreeComponent,
-    AceEditorDirective
+    GithubRepoTreeComponent
   ],
   imports: [
     CommonModule,
@@ -30,6 +29,7 @@ import { LoggerService } from './logger-service';
     MdProgressBarModule,
     MdSnackBarModule,
     MdChipsModule,
+    AceEditorModule,
     HttpClientModule
   ],
   providers: [GithubRepoService, LoggerService]

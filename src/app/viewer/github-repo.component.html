@@ -27,7 +27,7 @@
   <md-grid-tile [colspan]="2">
     <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
     <div ace-editor
-      *ngIf="!isLoading && selectedFile"
+      *ngIf="!isLoading && !!selectedFile"
       class="ace-editor"
       [text]="selectedFile"
       [mode]="mode"
