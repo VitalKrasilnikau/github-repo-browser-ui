@@ -14,7 +14,7 @@
     right: 20px;
     top: 20px;
   }
-  [ng-reflect-colspan] {
+  .grey {
     background: #eee;
   }
 </style>
@@ -24,7 +24,7 @@
       <app-github-repo-tree [repo]="repo"></app-github-repo-tree>
     </div>
   </md-grid-tile>
-  <md-grid-tile [colspan]="2">
+  <md-grid-tile [colspan]="2" class="grey">
     <md-progress-bar mode="indeterminate" *ngIf="isLoading"></md-progress-bar>
     <div ace-editor
       *ngIf="!isLoading && !!selectedFile"
@@ -45,7 +45,7 @@
             <md-chip color="primary" selected="true">{{views}} views</md-chip>
           </md-chip-list>
         </div>
-        <img md-card-image src="{{repo.imgSrc}}">
+        <img style="max-width:560px;" md-card-image src="{{repo.imgSrc}}">
         <md-card-content>
           <p style="max-width:500px;" [innerHTML]="repo.description"></p>
         </md-card-content>
