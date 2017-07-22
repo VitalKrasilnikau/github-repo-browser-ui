@@ -1,0 +1,28 @@
+<style>
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+.mat-list .mat-list {
+  margin-left: 30px;
+}
+.mat-button {
+  text-align: left;
+}
+.busy {
+  display: inline-block !important;
+  width: 20px !important;
+  height: 20px !important;
+}
+</style>
+<md-list>
+  <div *ngFor="let i of tree">
+    <md-list-item>
+      <md-icon *ngIf="i.isFolder" md-list-icon>folder</md-icon>
+      <md-icon *ngIf="!i.isFolder" md-list-icon>note</md-icon>
+      <div md-line>
+        <a md-button (click)="toggle(i)">{{i.name}}</a> <md-spinner [class.busy]="i.isBeingExpanded" *ngIf="i.isBeingExpanded"></md-spinner>
+      </div>
+    </md-list-item>
+    <app-github-repo-tree (onExpanded)="onChildExpanded(i, $event)" *ngIf="i.isFolder && i.isExpanded" [repo]="i.repoData"></app-github-repo-tree>
+  </div>
+</md-list>

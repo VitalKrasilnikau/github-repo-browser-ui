@@ -1,0 +1,8 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<ng-container *ngIf="repos">
+  <md-tab-group>
+    <md-tab *ngFor="let r of repos" [label]="r.title">
+      <app-github-repo [repo]="r"></app-github-repo>
+    </md-tab>
+  </md-tab-group>
+</ng-container>
