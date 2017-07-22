@@ -31,7 +31,7 @@
       class="ace-editor"
       [text]="selectedFile"
       [mode]="mode"
-      [theme]="'clouds'"
+      [theme]="'chrome'"
       [readOnly]="true"></div>
     <div *ngIf="!isLoading && !selectedFile">
       <md-card class="example-card">
@@ -47,7 +47,7 @@
         </div>
         <img md-card-image src="{{repo.imgSrc}}">
         <md-card-content>
-          <p [innerHTML]="repo.description"></p>
+          <p style="max-width:500px;" [innerHTML]="repo.description"></p>
         </md-card-content>
         <md-card-actions>
           <button md-button (click)="like()">LIKE</button>

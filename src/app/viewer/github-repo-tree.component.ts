@@ -39,7 +39,7 @@ export class GithubRepoTreeComponent implements OnInit {
         .getRepo(this.repo.name, this.repo.commit)
         .subscribe(
           data => {
-            this.tree = data;
+            this.tree = data.sort(this._sort);
             this.onExpanded.emit(true);
           },
           e => {
@@ -48,6 +48,13 @@ export class GithubRepoTreeComponent implements OnInit {
           }
         );
     }
+  }
+
+  _sort(x: GithubRepoFile, y: GithubRepoFile): number {
+    if (x.isFolder && y.isFolder) return x.name > y.name ? 1 : -1;
+    else if (x.isFolder) return -1;
+    else if (y.isFolder) return 1;
+    else return x.name > y.name ? 1 : -1;
   }
 
   toggle(item: GithubRepoFile): void {

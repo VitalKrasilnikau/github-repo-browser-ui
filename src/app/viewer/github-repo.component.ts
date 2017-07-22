@@ -1,29 +1,25 @@
-import { Component, Input, OnInit, OnDestroy, HostListener, AfterViewChecked } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
 import { GithubRepoService } from './github-repo.service';
 import { GithubRepo } from './github-repo';
 import { EventAggregatorService } from './event-aggregator.service';
 import { GithubRepoFile } from './github-repo-file';
-
-import 'brace/index';
-import 'brace/theme/clouds';
-import 'brace/mode/xml';
-import 'brace/mode/csharp';
-import 'brace/mode/markdown';
-import 'brace/mode/scala';
-import 'brace/mode/javascript';
-import 'brace/mode/css';
-import 'brace/mode/html';
-import 'brace/mode/typescript';
-
 import { OnFileSelected } from './github-repo-tree.component';
 import { LoggerService } from './logger-service';
+
+import 'brace/index';
+import 'brace/theme/chrome';
+import 'brace/mode/xml';
+import 'brace/mode/markdown';
+import 'brace/mode/csharp';
+import 'brace/mode/html';
+import 'brace/mode/typescript';
 
 @Component({
   selector: 'app-github-repo',
   templateUrl: './github-repo.component.html',
   providers: [EventAggregatorService]
 })
-export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() repo: GithubRepo;
 
@@ -106,23 +102,16 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewChecked 
       case 'md':
         this.mode = 'markdown';
         break;
+      case 'html':
+        this.mode = 'html';
+        break;
       case 'cs':
         this.mode = 'csharp';
         break;
       case 'scala':
-        this.mode = 'scala';
-        break;
       case 'js':
-      case 'json':
-        this.mode = 'javascript';
-        break;
-      case 'css':
-        this.mode = 'css';
-        break;
-      case 'html':
-        this.mode = 'html';
-        break;
       case 'ts':
+      case 'json':
         this.mode = 'typescript';
         break;
       default:
@@ -135,7 +124,7 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewChecked 
     setTimeout(() => this.gridRowHeight = event.target.innerHeight - 200 + 'px', 1);
   }
 
-  ngAfterViewChecked() {
+  ngAfterViewInit() {
     setTimeout(() => this.gridRowHeight = window.innerHeight - 200 + 'px', 1);
   }
 }

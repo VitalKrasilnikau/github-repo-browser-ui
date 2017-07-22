@@ -15,4 +15,4 @@ Run `ng generate component component-name` to generate a new component. You can 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
 ## Deploy to Heroku
-The repository contains `Deploy` folder with basic Node.js **Express** configuration. 
+The repository contains `Deploy` folder with basic Node.js **Express** configuration. Copy the contents of `dist` folder after `ng build -prod` to the `Deploy` folder and push to Heroku.
