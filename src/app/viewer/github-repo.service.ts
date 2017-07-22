@@ -76,11 +76,11 @@ export class GithubRepoService {
   }
 
   _getGithubTreeUri(name: string, commit: string): string {
-    return `https://api.github.com/repos/vkrasilnikau/${name}/git/trees/${commit}`;
+    return `https://api.github.com/repos/VitalKrasilnikau/${name}/git/trees/${commit}`;
   }
 
   _getGithubFileUri(name: string, commit: string): string {
-    return `https://api.github.com/repos/vkrasilnikau/${name}/git/blobs/${commit}`;
+    return `https://api.github.com/repos/VitalKrasilnikau/${name}/git/blobs/${commit}`;
   }
 
   _b64DecodeUnicode(str: string): string {
