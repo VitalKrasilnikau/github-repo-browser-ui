@@ -12,7 +12,7 @@
   div.right {
     position: absolute;
     right: 20px;
-    top: 20px;
+    top: 10px;
   }
   .grey {
     background: #eee;
@@ -36,8 +36,7 @@
     <div *ngIf="!isLoading && !selectedFile">
       <md-card class="example-card">
         <md-card-header>
-          <md-card-title><strong>{{repo.title}}</strong></md-card-title>
-          <md-card-subtitle><a target="_blank" title="Visit site" href="{{repo.url}}">Visit site</a></md-card-subtitle>
+          <md-card-title><strong>{{repo.title}}</strong> &nbsp;<a target="_blank" title="Visit site" href="{{repo.url}}">Visit site</a></md-card-title>
         </md-card-header>
         <div class="right">
           <md-chip-list>
@@ -47,7 +46,7 @@
         </div>
         <img style="max-width:560px;" md-card-image src="{{repo.imgSrc}}">
         <md-card-content>
-          <p style="max-width:500px;" [innerHTML]="repo.description"></p>
+          <p style="max-width:500px;text-align:justify;" [innerHTML]="repo.description"></p>
         </md-card-content>
         <md-card-actions>
           <button md-button (click)="like()">LIKE</button>

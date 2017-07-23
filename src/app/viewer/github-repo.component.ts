@@ -121,10 +121,10 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
-    setTimeout(() => this.gridRowHeight = event.target.innerHeight - 200 + 'px', 1);
+    setTimeout(() => this.gridRowHeight = event.target.innerHeight - 150 + 'px', 1);
   }
 
   ngAfterViewInit() {
-    setTimeout(() => this.gridRowHeight = window.innerHeight - 200 + 'px', 1);
+    setTimeout(() => this.gridRowHeight = window.innerHeight - 150 + 'px', 1);
   }
 }

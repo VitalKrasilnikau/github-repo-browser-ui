@@ -1,4 +1,5 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<div *ngIf="isLoading">Bootstrapping the app. Please wait. <md-spinner style="margin:0 auto;"></md-spinner></div>
 <ng-container *ngIf="repos">
   <md-tab-group>
     <md-tab *ngFor="let r of repos" [label]="r.title">
