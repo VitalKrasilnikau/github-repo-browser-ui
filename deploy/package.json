@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "express-static-gzip": "^0.3.0"
   }
 }
