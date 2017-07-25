@@ -32,11 +32,11 @@ export class GithubRepoService {
       .map(data => this._convert(repoName, data));
   }
 
-  getFile(repoName: string, commit: string = 'master'): Observable<string> {
+  getFile(repoName: string, commit: string = 'master', shouldDecode: boolean = true): Observable<string> {
     return this.http
       .get(this._getGithubFileUri(repoName, commit))
       .retry(3)
-      .map(data => this._b64DecodeUnicode(data['content']));
+      .map(data => shouldDecode ? this._b64DecodeUnicode(data['content']) : data['content']);
   }
 
   getViews(repoName: string): Observable<number> {

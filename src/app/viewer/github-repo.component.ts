@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, OnDestroy, HostListener, AfterViewInit } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { GithubRepoService } from './github-repo.service';
 import { GithubRepo } from './github-repo';
 import { EventAggregatorService } from './event-aggregator.service';
@@ -13,6 +14,7 @@ import 'brace/mode/markdown';
 import 'brace/mode/csharp';
 import 'brace/mode/html';
 import 'brace/mode/typescript';
+import 'brace/mode/css';
 
 @Component({
   selector: 'app-github-repo',
@@ -25,6 +27,7 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   gridRowHeight = '200px';
   selectedFile = '';
+  selectedImage: SafeUrl;
   mode = 'xml';
   isLoading = false;
   likes = 0;
@@ -32,7 +35,7 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(private _githubRepoService: GithubRepoService,
     private _eventAggregator: EventAggregatorService,
-    private _logger: LoggerService) {}
+    private _logger: LoggerService, private _sanitizer: DomSanitizer) {}
 
   ngOnDestroy(): void {
     this._eventAggregator.unsubscribe(OnFileSelected);
@@ -44,6 +47,7 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
       .subscribe(f => {
         if (f == null) {
           this.selectedFile = '';
+          this.selectedImage = null;
         } else {
           this._loadData(f);
         }
@@ -56,7 +60,7 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
     this.isLoading = true;
     try {
       this._githubRepoService
-        .getFile(f.repoData.name, f.repoData.commit)
+        .getFile(f.repoData.name, f.repoData.commit, !this._isImage(f.name))
         .subscribe(
           data => this._setContent(data, f.name),
           e => {
@@ -94,10 +98,29 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
     this.likes++;
   }
 
+  _isImage(name: string): boolean {
+    const ext = name && name.split('.').pop() || '';
+    switch (ext.toLowerCase()) {
+      case 'png':
+      case 'jpg':
+        return true;
+      default:
+        return false;
+    }
+  }
+
   _setContent(data: string, name: string): void {
     this.isLoading = false;
-    this.selectedFile = data || '';
     const ext = name && name.split('.').pop() || '';
+    switch (ext.toLowerCase()) {
+      case 'png':
+      case 'jpg':
+        this.selectedFile = '';
+        this.selectedImage = this._sanitizer.bypassSecurityTrustUrl(`data:image/${ext};base64,` + data);
+        return;
+    }
+    this.selectedImage = null;
+    this.selectedFile = data || '';
     switch (ext.toLowerCase()) {
       case 'md':
         this.mode = 'markdown';
@@ -107,6 +130,9 @@ export class GithubRepoComponent implements OnInit, OnDestroy, AfterViewInit {
         break;
       case 'cs':
         this.mode = 'csharp';
+        break;
+      case 'css':
+        this.mode = 'css';
         break;
       case 'scala':
       case 'js':

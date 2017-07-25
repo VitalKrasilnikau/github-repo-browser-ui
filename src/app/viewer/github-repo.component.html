@@ -33,7 +33,10 @@
       [mode]="mode"
       [theme]="'chrome'"
       [readOnly]="true"></div>
-    <div *ngIf="!isLoading && !selectedFile">
+    <div *ngIf="!isLoading && !!selectedImage">
+      <img [src]="selectedImage">
+    </div>
+    <div *ngIf="!isLoading && !selectedFile && !selectedImage">
       <md-card class="example-card">
         <md-card-header>
           <md-card-title><strong>{{repo.title}}</strong> &nbsp;<a target="_blank" title="Visit site" href="{{repo.url}}">Visit site</a></md-card-title>
